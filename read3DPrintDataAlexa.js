@@ -21,12 +21,12 @@ exports.handler = (event, context) => {
                     buildSpeechletResponse("welcome to the three D print monitor, I am excited to see its functionality expanded. I Hope you are too!", true),
                     {}
                 )
-            )
+                )
                 break;
             
             case "IntentRequest":
                 console.log('INTENT REQUEST')
-
+                var 
                 switch(event.request.intent.name){
 
                     case "PrintAllData":
