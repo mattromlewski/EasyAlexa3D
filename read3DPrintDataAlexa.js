@@ -18,7 +18,7 @@ exports.handler = (event, context) => {
                 console.log('LAUNCH REQUEST')
                 context.succeed(
                 generateResponse(
-                    buildSpeechletResponse("welcome to the three D print monitor, I am excited to see its functionality expanded.", true),
+                    buildSpeechletResponse("welcome to the three D print monitor, I am excited to see its functionality expanded. I Hope you are too!", true),
                     {}
                 )
             )
