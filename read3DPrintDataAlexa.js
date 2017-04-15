@@ -6,7 +6,7 @@ Shoutout to Jordan Leigh on YouTube for a great tutorial on Lambda etc., it help
 const AWS = require('aws-sdk');
 const docClient = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'});
 
-exports.handler = (event, context) => {
+exports.handler = (event, context, callback) => {
     try{
         if (event.session.new){
             console.log("NEW SESSION")           
@@ -26,7 +26,18 @@ exports.handler = (event, context) => {
             
             case "IntentRequest":
                 console.log('INTENT REQUEST')
-                var 
+                
+                var data = retrieveFromDB(printer)
+                
+                if (data == "failed") {
+                    context.fail(
+                        generateResponse(
+                            buildSpeechletResponse("Sorry, there was an error.", true),
+                            {}
+                            )
+                    )
+                }
+
                 switch(event.request.intent.name){
 
                     case "PrintAllData":
@@ -73,3 +84,25 @@ generateResponse = (speechletResponse, sessionAttributes) => {
     }
 }
 
+function retrieveFromDB(printer){
+
+    var paramsForGet = {
+                TableName: "printData",
+                key:{
+                    "printJob": printer
+                }
+    }
+
+    docClient.get(paramsForGet, function(err, data){
+        if(err){
+            //error handling
+            return "failed";
+        }else{
+            return data;
+        }
+    });
+}
+
+/*function prepareData(data, attribute){
+
+}*/
