@@ -1,0 +1,16 @@
+
+PrintAllData about {printer}
+PrintAllData details on {printer}
+PrintAllData the details of {printer}
+
+PrintTimeLeft how long {printer} will take
+PrintTimeLeft the time remaining for {printer}
+PrintTimeLeft chop chop on {printer}  
+
+PrintNozTemp the nozzle temperature of {printer} 
+PrintNozTemp how hot the nozzle on {printer} is 
+PrintNozTemp about the hot end of {printer}
+
+PrintBedTemp the bed temperature of {printer}
+PrintBedTemp how hot the bed on {printer} is 
+PrintBedTemp about the bed of {printer}

@@ -1,0 +1,13 @@
+//slot for printer name/location to tell Alexa which printer you are interested in
+//Assumes that there is A print job for A printer
+
+PRINTER_NAME
+garage A
+garage B
+garage C
+office A
+office B
+office c
+workshop A
+workshop B
+workshop c 

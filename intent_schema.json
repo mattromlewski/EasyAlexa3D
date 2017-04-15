@@ -1,0 +1,40 @@
+{
+	"intents":[
+      {
+        "intent": "PrintTimeLeft",
+        "slots": [
+          {
+            "name": "printer",
+            "type": "PRINTER_NAME"
+          }
+        ]
+      },
+      {
+        "intent": "PrintNozTemp",
+        "slots": [
+          {
+            "name": "printer",
+            "type": "PRINTER_NAME"
+          }
+        ]
+      },
+      {
+        "intent": "PrintBedTemp",
+        "slots": [
+          {
+            "name": "printer",
+            "type": "PRINTER_NAME"
+          }
+        ]
+      },
+      {
+        "intent": "PrintAllData" ,
+        "slots": [
+          {
+            "name": "printer",
+            "type": "PRINTER_NAME"
+          }
+        ]
+      }
+    ]
+}
