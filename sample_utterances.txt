@@ -14,3 +14,7 @@ PrintNozTemp about the hot end of {printer}
 PrintBedTemp the bed temperature of {printer}
 PrintBedTemp how hot the bed on {printer} is 
 PrintBedTemp about the bed of {printer}
+
+PrintJobName what is being printed on {printer}
+PrintJobName about the item on {printer}
+PrintJobName what's being made on {printer}

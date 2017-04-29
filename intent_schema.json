@@ -35,6 +35,15 @@
             "type": "PRINTER_NAME"
           }
         ]
+      },
+      {
+        "intent": "PrintJobName" ,
+        "slots": [
+          {
+            "name": "printer",
+            "type": "PRINTER_NAME"
+          }
+        ]
       }
     ]
 }

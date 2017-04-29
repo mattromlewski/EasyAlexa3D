@@ -5,7 +5,8 @@ Shoutout to Jordan Leigh on YouTube for a great tutorial on Lambda etc., it help
 */ 
 const AWS = require('aws-sdk');
 const docClient = new AWS.DynamoDB.DocumentClient({region: 'us-east-1'});
-
+var data2 = retrieveFromDB("office A")
+console.log(data2.item[0].part)
 exports.handler = (event, context, callback) => {
     try{
         if (event.session.new){
@@ -27,8 +28,10 @@ exports.handler = (event, context, callback) => {
             case "IntentRequest":
                 console.log('INTENT REQUEST')
                 
-                var data = retrieveFromDB(printer)
-                
+                var printerName = event.request.intent.slots.printer.value
+
+                var data = retrieveFromDB(printerName)
+            
                 if (data == "failed") {
                     context.fail(
                         generateResponse(
@@ -37,24 +40,50 @@ exports.handler = (event, context, callback) => {
                             )
                     )
                 }
-
-                switch(event.request.intent.name){
-
-                    case "PrintAllData":
+                else{
+                    var phrase
+                    var nozT = data.item[0].NozzleTemperature
+                    var bedT = data.item[0].BedTemperature
+                    var mins = data.item[0].MinutesRemaining
+                    var part = data.item[0].Part
+                    switch(event.request.intent.name){
                         
-                        break;
+                        case "PrintAllData":
+                            
 
-                    case "PrintNozTemp":
-                        break;
-                    
-                    case "PrintBedTemp":
-                        break;
+                            phrase = "Right now on ${printerName}, an item called ${part} is being printed and will take another ${mins} minutes to complete. The nozzle temperature is ${nozT} degrees celcius and the bed temperature is &{bedT} degrees celcius."
+                            break;
 
-                    case "PrintTimeLeft":
-                        break;
+                        case "PrintNozTemp":
+                            
+                            phrase = "Righ now on ${printerName}, the nozzle temperature is ${nozT} degrees celcius " 
+                            break;
+                        
+                        case "PrintBedTemp":
+                            
+                            phrase = "Righ now on ${printerName}, the bed temperature is ${bedT} degrees celcius "
+                            break;
+
+                        case "PrintTimeLeft":
+                            
+                            phrase = "Right now on ${printerName}, the object will take another ${mins} minutes to complete."
+                            break;
+                        
+                        case "PrintJobName":
+                            
+                            phrase = "Right now on ${printerName}, an item called ${part} is being printed."
+                            break;
+                    }
+                    context.succeed(
+                        generateResponse(
+                            buildSpeechletResponse(phrase, true),
+                            {}
+                            )
+                    )
+
                 }
                 break;
-            
+                
             case "SessionEndedRequest":
                 console.log('SESSION ENDED REQUEST')
                 break;
