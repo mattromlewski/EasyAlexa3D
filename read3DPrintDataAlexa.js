@@ -61,29 +61,30 @@ exports.handler = (event, context, callback) => {
                                         
                                         case "PrintAllData":
                             
-                                            phrase = "Right now on ${printerName}, an item called ${part} is being printed and will take another ${mins} minutes to complete. The nozzle temperature is ${nozT} degrees celcius and the bed temperature is &{bedT} degrees celcius."
+                                            phrase = `Right now on ${printerName}, an item called ${part} is being printed and will take another ${mins} minutes to complete. The nozzle temperature is ${nozT} degrees celcius and the bed temperature is &{bedT} degrees celcius.`
                                             break;
 
                                         case "PrintNozTemp":
                                             
-                                            phrase = "Righ now on ${printerName}, the nozzle temperature is ${nozT} degrees celcius " 
+                                            phrase = `Right now on ${printerName}, the nozzle temperature is ${nozT} degrees celcius.`
                                             break;
                                         
                                         case "PrintBedTemp":
                                             
-                                            phrase = "Righ now on ${printerName}, the bed temperature is ${bedT} degrees celcius "
+                                            phrase = `Righ now on ${printerName}, the bed temperature is ${bedT} degrees celcius `
                                             break;
 
                                         case "PrintTimeLeft":
                                             
-                                            phrase = 'Right now on ${printerName}, the object will take another ${mins} minutes to complete.'
+                                            phrase = `Right now on ${printerName}, the object will take another ${mins} minutes to complete.`
                                             break;
                                         
                                         case "PrintJobName":
                                             
-                                            phrase = "Right now on ${printerName}, an item called ${part} is being printed."
+                                            phrase = `Right now on ${printerName}, an item called ${part} is being printed.`
                                             break;
                                     }
+                                    //one single response builder for all qurestion types
                                     context.succeed(
                                         generateResponse(
                                             buildSpeechletResponse(phrase, true),
