@@ -51,11 +51,11 @@ exports.handler = (event, context, callback) => {
 
                                     //have a case for each type of question
                                     var phrase
-                                    
+
                                     var nozT = (data.Item.NozzleTemperature).toString()
-                                    var bedT = (data.item.BedTemperature).toString()
-                                    var mins = (data.item.MinutesRemaining).toString()
-                                    var part = data.item.Part
+                                    var bedT = (data.Item.BedTemperature).toString()
+                                    var mins = (data.Item.MinutesRemaining).toString()
+                                    var part = data.Item.Part
                                     
                                     switch(event.request.intent.name){
                                         
