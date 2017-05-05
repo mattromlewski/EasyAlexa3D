@@ -45,12 +45,20 @@ exports.handler = (event, context, callback) => {
                                         )
                                     )
                                 }else{
-                                    callback(null, data);
-                                    strData = JSON.stringify(data);
-                                    console.log(strData);
+                                    //callback(null, data);
+                                    //strData = JSON.stringify(data);
+                                    //console.log(strData);
 
                                     //have a case for each type of question
-                                    switch(event.request.intent.type){
+                                    var phrase
+                                    
+                                    var nozT = (data.Item.NozzleTemperature).toString()
+                                    var bedT = (data.item.BedTemperature).toString()
+                                    var mins = (data.item.MinutesRemaining).toString()
+                                    var part = data.item.Part
+                                    
+                                    switch(event.request.intent.name){
+                                        
                                         case "PrintAllData":
                             
                                             phrase = "Right now on ${printerName}, an item called ${part} is being printed and will take another ${mins} minutes to complete. The nozzle temperature is ${nozT} degrees celcius and the bed temperature is &{bedT} degrees celcius."
@@ -68,7 +76,7 @@ exports.handler = (event, context, callback) => {
 
                                         case "PrintTimeLeft":
                                             
-                                            phrase = "Right now on ${printerName}, the object will take another ${mins} minutes to complete."
+                                            phrase = 'Right now on ${printerName}, the object will take another ${mins} minutes to complete.'
                                             break;
                                         
                                         case "PrintJobName":
@@ -76,6 +84,12 @@ exports.handler = (event, context, callback) => {
                                             phrase = "Right now on ${printerName}, an item called ${part} is being printed."
                                             break;
                                     }
+                                    context.succeed(
+                                        generateResponse(
+                                            buildSpeechletResponse(phrase, true),
+                                            {}
+                                            )
+                                    )
                                 }
                             });
 
