@@ -11,30 +11,7 @@ exports.handler = (event, context, callback) => {
         if (event.session.new){
             console.log("NEW SESSION")           
         }
-        var printerName = event.request.intent.slots.printer.value    
-        let params= {
-            TableName: 'printData',
-                    Key: {
-            "printJob": 'office A'
-            }
-        }
-        var strData = "empty"
-        console.log("got this far")
-        //DynamoDB API Call
-        docClient.get(params, function(err, data){
-            if (err){
-                console.error('there was an error',JSON.stringify(err));
-                context.fail(
-                    generateResponse(
-                        buildSpeechletResponse("Sorry, there was an error.", true),
-                        {}
-                    )
-                )
-            }else{
-                callback(null, data);
-                strData = JSON.stringify(data);
-                console.log(strData);
-                
+
                 switch(event.request.type) {
                     //if the skill is launched with no question
                     case "LaunchRequest":
@@ -47,19 +24,67 @@ exports.handler = (event, context, callback) => {
                         )
                         break;
                     //if a question is asked
-                    case "IntentRequest":
-                        //have a case for each type of question
-                        switch(event.request.intent.type){
+                    case "IntentRequest":  
+                            var printerName = event.request.intent.slots.printer.value  
+                            let params= {
+                                TableName: 'printData',
+                                        Key: {
+                                "printJob": printerName
+                                }
+                            }
+                            var strData = "empty"
+                            console.log("got this far")
+                            //DynamoDB API Call
+                            docClient.get(params, function(err, data){
+                                if (err){
+                                    console.error('there was an error',JSON.stringify(err));
+                                    context.fail(
+                                        generateResponse(
+                                            buildSpeechletResponse("Sorry, there was an error.", true),
+                                            {}
+                                        )
+                                    )
+                                }else{
+                                    callback(null, data);
+                                    strData = JSON.stringify(data);
+                                    console.log(strData);
+
+                                    //have a case for each type of question
+                                    switch(event.request.intent.type){
+                                        case "PrintAllData":
                             
-                        }
+                                            phrase = "Right now on ${printerName}, an item called ${part} is being printed and will take another ${mins} minutes to complete. The nozzle temperature is ${nozT} degrees celcius and the bed temperature is &{bedT} degrees celcius."
+                                            break;
+
+                                        case "PrintNozTemp":
+                                            
+                                            phrase = "Righ now on ${printerName}, the nozzle temperature is ${nozT} degrees celcius " 
+                                            break;
+                                        
+                                        case "PrintBedTemp":
+                                            
+                                            phrase = "Righ now on ${printerName}, the bed temperature is ${bedT} degrees celcius "
+                                            break;
+
+                                        case "PrintTimeLeft":
+                                            
+                                            phrase = "Right now on ${printerName}, the object will take another ${mins} minutes to complete."
+                                            break;
+                                        
+                                        case "PrintJobName":
+                                            
+                                            phrase = "Right now on ${printerName}, an item called ${part} is being printed."
+                                            break;
+                                    }
+                                }
+                            });
+
                         break;
-                    
+
+                    default:
+                        context.fail(`INVALID REQUEST TYPE: ${event.request.type}`)
                 }
 
-
-
-            }
-        });
      }catch(error) { context.fail('Exception: ${error}')}
 }
 
