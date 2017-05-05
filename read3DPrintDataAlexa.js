@@ -71,7 +71,7 @@ exports.handler = (event, context, callback) => {
                                         
                                         case "PrintBedTemp":
                                             
-                                            phrase = `Righ now on ${printerName}, the bed temperature is ${bedT} degrees celcius `
+                                            phrase = `Right now on ${printerName}, the bed temperature is ${bedT} degrees celcius `
                                             break;
 
                                         case "PrintTimeLeft":
