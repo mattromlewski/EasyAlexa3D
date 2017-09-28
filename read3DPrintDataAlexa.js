@@ -61,7 +61,7 @@ exports.handler = (event, context, callback) => {
                                         
                                         case "PrintAllData":
                             
-                                            phrase = `Right now on ${printerName}, an item called ${part} is being printed and will take another ${mins} minutes to complete. The nozzle temperature is ${nozT} degrees celcius and the bed temperature is &{bedT} degrees celcius.`
+                                            phrase = `Right now on ${printerName}, an item called ${part} is being printed and will take another ${mins} minutes to complete. The nozzle temperature is ${nozT} degrees celcius and the bed temperature is ${bedT} degrees celcius.`
                                             break;
 
                                         case "PrintNozTemp":
